@@ -52,6 +52,7 @@ def stop(roomId):
     socketio.emit("StopDrawingFromServer", to=roomId)
 @socketio.on("DrawCurrentPoint")
 def draw(data):
+    print("koooooooooooo")
     socketio.emit("DrawCurrentPointFromServer",data,to=data['roomId'])
 
 
@@ -193,5 +194,5 @@ def disconnect():
     socketio.emit("EmitMessageFromServer", message, to=roomId)
 
 
-# if __name__ == "__main__":
-#     socketio.run(app)
+if __name__ == "__main__":
+    socketio.run(app)
