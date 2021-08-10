@@ -58,6 +58,7 @@ socket.on("TimeLeftFromServer",time=>{
     document.getElementById("time").innerHTML = "Time Left:" + (120-time)
 })
 socket.on("DrawCurrentPointFromServer",obj=>{
+    if(obj['userId'] == id)return
     draw.strokeStyle = obj['color'];
     draw.lineWidth = obj['width']
     console.log("Drawing")
@@ -130,7 +131,7 @@ function DrawOnCanvas(){
         var scaleY = canvas.height / rect.height;
         let x = (event.clientX - rect.left) * scaleX;
         let y = (event.clientY - rect.top) * scaleY;
-        let data = {'x':x,'y':y,'width':lineWidth, 'color':color,'roomId':roomId}
+        let data = {'x':x,'y':y,'width':lineWidth, 'color':color,'roomId':roomId,"userId":id}
         draw.lineTo(x, y);
         draw.stroke();
         socket.emit('DrawCurrentPoint',data)
