@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scrabble</title>
+    <script type=text/javascript src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        #canvas {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Pictionary room id: {{roomId}}</h1>
+<br>
+<p id="time"></p>
+<p id="word"></p>
+<p id="round">Rounds: 5</p>
+
+<button onclick="eraser()">Eraser</button>
+<button onclick="refresh()">Refresh</button>
+<button onclick="changeSize(5)">small</button>
+<button onclick="changeSize(10)">medium</button>
+<button onclick="changeSize(15)">large</button>
+<div>
+    <h2>Participants</h2>
+    <div id="participants">
+        <p>Koushik</p>
+        <p>Hementh</p>
+    </div>
+    <h2>Scores</h2>
+    <div id="score">
+
+    </div>
+</div>
+<div id="reward">
+<h2>Final Scores</h2>
+</div>
+<input type="color" onchange="changeColor(this.value)">
+<canvas style="width:92%;height:50%" id="canvas" onmousedown="KeepDrawing()" onmousemove="DrawOnCanvas()" onmouseup="StopDrawing()">
+</canvas>
+<div id="chat-container">
+    <p>Koushik:Hello there</p>
+    <p>Hementh:hey there</p>
+</div>
+
+
+<form action="#" method="post">
+    <input type="text" name="message" id="msg">
+    <input type="submit" value="send" onclick="sendMessage()">
+</form>
+<form action="../..">
+    <input type="submit" value="leave room">
+</form>
+<button onclick="startgame()">Start Game</button>
+<button onclick="setTimeout(timeEvent,3000)" id="next" hidden>Done</button>
+<button onclick="mute()" id="mute">mute</button>
+<audio id="bgm" controls loop autoplay hidden>
+    <source src="{{
+  url_for('static', filename='audio/Chiptronical.ogg') }}" type="audio/ogg">
+</audio>
+<audio id="win">
+    <source src="{{
+  url_for('static', filename='audio/win.mp3') }}" type="audio/mp3">
+</audio>
+<script type=text/javascript src="{{
+  url_for('static', filename='js/app.js') }}"></script>
+<script type=text/javascript src="{{
+  url_for('static', filename='js/messaging.js') }}"></script>
+</body>
+</html>
