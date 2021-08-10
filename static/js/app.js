@@ -26,7 +26,7 @@ var isEraser = false
 var canDraw = false
 var isMouseDown = false
 var lineColor = "black"
-
+console.log("hellooo")
 socket.emit("Join-Rooms")
 
 socket.on("RemoveParticipants",()=>{
