@@ -60,9 +60,10 @@ socket.on("TimeLeftFromServer",time=>{
 socket.on("DrawCurrentPointFromServer",obj=>{
     draw.strokeStyle = obj['color'];
     draw.lineWidth = obj['width']
+    console.log("Drawing")
     draw.lineTo(obj['x'], obj['y']);
     draw.stroke();
-    draw.strokeStyl3xe = color;
+    draw.strokeStyle = color;
 })
 
 socket.on("StopDrawingFromServer",()=>{
