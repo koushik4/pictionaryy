@@ -21,6 +21,7 @@ backports.shutil-get-terminal-size==1.0.0
 backports.tempfile==1.0
 backports.weakref==1.0.post1
 beautifulsoup4==4.9.1
+bidict==0.21.2
 bitarray @ file:///opt/concourse/worker/volumes/live/9034c98d-f3e3-4444-48f0-092269ed9919/volume/bitarray_1594753940633/work
 bkcharts==0.2
 bleach==3.1.5
@@ -57,6 +58,7 @@ fastcache==1.1.0
 filelock==3.0.12
 flake8==3.8.3
 Flask==1.1.2
+Flask-SocketIO==5.1.1
 fsspec==0.7.4
 future==0.18.2
 gast==0.3.3
@@ -68,6 +70,7 @@ google-auth-oauthlib==0.4.1
 google-pasta==0.2.0
 greenlet==0.4.16
 grpcio==1.31.0
+gunicorn==20.1.0
 h5py==2.10.0
 HeapDict==1.0.1
 html5lib @ file:///tmp/build/80754af9/html5lib_1593446221756/work
@@ -170,8 +173,10 @@ pyrsistent==0.16.0
 PySocks @ file:///opt/concourse/worker/volumes/live/85a5b906-0e08-41d9-6f59-084cee4e9492/volume/pysocks_1594394636991/work
 pytest==5.4.3
 python-dateutil==2.8.1
+python-engineio==4.2.1
 python-jsonrpc-server @ file:///tmp/build/80754af9/python-jsonrpc-server_1594397536060/work
 python-language-server @ file:///opt/concourse/worker/volumes/live/5f0313b4-ff69-4d9d-5c31-e01b223dabd6/volume/python-language-server_1594161914367/work
+python-socketio==5.4.0
 pytz==2020.1
 PyWavelets==1.1.1
 PyYAML==5.3.1
