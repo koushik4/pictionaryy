@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Scrabble</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="hidden" crossorigin="anonymous"></script>
     <style>
         #canvas {
             border: 2px solid black;
@@ -62,8 +63,6 @@
     <source src="{{
   url_for('static', filename='audio/win.mp3') }}" type="audio/mp3">
 </audio>
-    <script type=text/javascript src="{{
-  url_for('static', filename='js/socketio.js') }}"></script>
 <script type=text/javascript src="{{
   url_for('static', filename='js/app.js') }}"></script>
 <script type=text/javascript src="{{

@@ -163,6 +163,7 @@ function Timer(){
 
 
 function startgame(){
+    console.log("start game")
     socket.emit("StartGame",roomId,id)
 }
 function timeEvent(){
