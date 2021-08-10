@@ -131,9 +131,6 @@ function DrawOnCanvas(){
         let x = (event.clientX - rect.left) * scaleX;
         let y = (event.clientY - rect.top) * scaleY;
         let data = {'x':x,'y':y,'width':lineWidth, 'color':color,'roomId':roomId}
-//        draw.lineTo(x, y);
-//        draw.stroke();
-//        socket.emit('DrawCurrentPoint',data)
     }
     if(isMouseDown && isEraser && isDrawing && isGameOn) {
         draw.fillStyle = "white";
