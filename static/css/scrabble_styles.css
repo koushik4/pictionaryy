@@ -247,6 +247,16 @@ canvas {
     align-items: center;
 }
 
+#reward p {
+    height: 3rem;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 0.5rem;
+    margin: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .gamedetails {
     display: flex;
     flex-direction: row;

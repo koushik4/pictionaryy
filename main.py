@@ -67,7 +67,7 @@ def emitMessage(message,roomId,userId):
         scores[drawingUserIds[roomId]] += 5
         for userIds in rooms[roomId]:
             if userIds in usernames.keys():
-                socketio.emit("AddExistingParticipantsForScores", usernames[userIds] + "  " + str(scores[userIds]),
+                socketio.emit("AddExistingParticipantsForScores", {'username':usernames[userIds],'score':(scores[userIds])},
                               to=roomId)
 
         socketio.emit("EndGame", (message,drawingUserIds[roomId]), to=roomId)
@@ -113,7 +113,7 @@ def joinRooms():
     for userIds in rooms[roomId]:
         if userIds in usernames.keys():
             socketio.emit("AddExistingParticipants",usernames[userIds],to=roomId)
-            socketio.emit("AddExistingParticipantsForScores", usernames[userIds]+"  "+str(scores[userIds]), to=roomId)
+            socketio.emit("AddExistingParticipantsForScores", {'username':usernames[userIds],'score':(scores[userIds])}, to=roomId)
 
 
 @app.route("/",methods = ["POST","GET"])
@@ -190,7 +190,7 @@ def disconnect():
     for userIds in rooms[roomId]:
         if userIds in usernames.keys():
             socketio.emit("AddExistingParticipants", usernames[userIds], to=roomId)
-            socketio.emit("AddExistingParticipantsForScores", usernames[userIds] + "  " + str(scores[userIds]),
+            socketio.emit("AddExistingParticipantsForScores", {'username':usernames[userIds],'score':(scores[userIds])},
                           to=roomId)
     socketio.emit("EmitMessageFromServer", message, to=roomId)
 
