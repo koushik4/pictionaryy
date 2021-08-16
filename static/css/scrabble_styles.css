@@ -1,0 +1,304 @@
+.chatbar {
+    float: right;
+    width: 100%;
+    height: 70vh;
+}
+
+.chatbar .headers {
+    display: flex;
+    flex-direction: row;
+}
+
+.chatbar .headers .tab {
+    border: 0.15rem solid rgba(255,255,255,0.5);
+    border-bottom: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px 10px 0px 0px;
+    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+    z-index: 200;
+    color: white;
+    transition: 200ms linear;
+}
+
+.chatbar .headers .tab:hover {
+    cursor: grab;
+    background-color: rgba(255,255,255,0.8);
+    color: black;
+}
+
+.chatbar .chat_tab {
+    padding-left: 1%;
+    padding-right: 2%;
+    border: 0.15rem solid rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    font-family: 'Roboto', sans-serif;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-radius: 0 1rem 1rem 1rem;
+    box-shadow: 0px 0px 6px 3px ;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.chatbar .part_tab {
+    border: 0.2rem solid rgb(187,134,252);
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    font-family: 'Roboto', sans-serif;
+    height: 90%;
+    border-radius: 0 1rem 1rem 1rem;
+    box-shadow: 0px 0px 6px 3px ;
+}
+
+.msg {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(100,100,100);
+    width: fit-content;
+    border-radius: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.msg .sender {
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-image: linear-gradient(135deg, #080808 25%, #131313 25%, #131313 50%, #080808 50%, #080808 75%, #131313 75%, #131313 100%);
+    background-size: 400px 400px;
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    background-color: white;
+    border-radius: 2rem;
+    border: 0.15rem solid rgba(0,0,0,0.7);
+    box-shadow: 0px 0px 10px 5px;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.toolbar {
+    display: flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+    border: 0.1rem solid rgba(255,255,255,0.5);
+    width: 98.5%;
+    height: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 6px 3px;
+    align-items: center;
+    padding-left: 1rem;
+    background-color: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+}
+
+.toolbar button{
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0.1rem solid white;
+    background-color: rgba(255,255,255,0.9);
+    transition: 200ms linear;
+}
+
+.toolbar input {
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0.1rem solid white;
+    background-color: rgba(255,255,255,0.9);
+    transition: 200ms linear;
+}
+
+.toolbar input:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.toolbar button:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.toolbar input {
+    height: 1.8rem;
+    width: 1.8rem;
+}
+
+.toolbar_sep {
+    height: 100%;
+    width: 0.1rem;
+    background-color: rgba(255,255,255,0.5);
+    margin-right: 0.5rem;
+}
+
+.topbar {
+    display: flex;
+    background-color: #131313;
+    height: 4rem;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.topbar h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 2.5rem;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.chatcontrols {
+    float: right;
+    width: 100%;
+}
+
+.chatinput {
+    display: flex;
+    border: 0.15rem solid rgba(255,255,255,0.5);
+    border-radius: 1rem;
+    height: 2.3rem;
+    background-color: white;
+    width: 99%;
+    box-shadow: 0px 0px 6px 3px ;
+    background-color:rgba(255, 255, 255, 0.1);
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.msginput {
+    border: none;
+    border-style: none;
+    width: 75%;
+    height: 1.75rem;
+    margin-left: 1rem;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    outline: none;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.sendmsg {
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(115, 176, 255);
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid rgb(115, 176, 255);
+    float: right;
+    margin-right: 0.5rem;
+}
+
+.controlbuttons {
+    background-color: rgba(255,255,255,0.1);
+    border: 2px solid white;
+    border-radius: 0.25rem;
+    height: 2rem;
+    margin-top: 0.5rem;
+    width: 49%;
+    color: white;
+    backdrop-filter: blur(5px);
+    transition: 200ms linear;
+    font-family: 'Roboto', sans-serif;
+}
+
+.controlbuttons:hover {
+    background-color: rgba(255,255,255,0.8);
+    color: black;
+}
+
+#participants p {
+    height: 3rem;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 0.5rem;
+    margin: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gamedetails {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 6px 3px;
+    margin: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0;
+    padding-left: 1rem;
+    border: 0.1rem solid rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.15);
+    backdrop-filter: blur(5px);
+    width: 98.5%;
+}
+
+.gamedetails p {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    margin-right: 2rem;
+}
+#score .scoretile {
+    height: 3rem;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 0.5rem;
+    margin: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#score .scoretile .scorename {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#score .scoretile .scoreval {
+    width: 50%;
+    background-color: lightskyblue;
+    display: flex;
+    float: right;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+div.chat_tab{
+overflow-x: hidden;
+overflow-y: auto;
+}

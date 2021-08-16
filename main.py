@@ -1,6 +1,5 @@
 from flask import Flask, redirect, url_for, request, render_template,session
 from flask_socketio import SocketIO, join_room
-import flask_socketio
 from collections import OrderedDict
 import random
 
@@ -19,10 +18,11 @@ count = {}
 words = {}
 wordList = ['cat', 'sun', 'cup', 'ghost', 'flower', 'pie', 'cow', 'banana', 'snowflake', 'bug', 'book', 'jar', 'snake', 'light', 'tree', 'lips', 'apple', 'slide', 'socks', 'smile', 'swing', 'coat', 'shoe', 'water', 'heart', 'hat', 'ocean', 'kite', 'dog', 'mouth', 'milk', 'duck', 'eyes', 'skateboard', 'bird', 'boy', 'apple', 'person', 'girl', 'mouse', 'ball', 'house', 'star', 'nose', 'bed', 'whale', 'jacket', 'shirt', 'hippo', 'beach', 'egg', 'face', 'cookie', 'cheese', 'ice cream cone', 'drum', 'circle', 'spoon', 'worm', 'spider web', 'horse', 'door', 'song', 'trip', 'backbone', 'bomb', 'round', 'treasure', 'garbage', 'park', 'pirate', 'ski', 'state', 'whistle', 'palace', 'baseball', 'coal', 'queen', 'dominoes', 'photograph', 'computer', 'hockey', 'aircraft', 'hot', 'dog', 'salt', 'pepper', 'key', 'iPad', 'whisk', 'frog', 'lawnmower', 'mattress', 'pinwheel', 'cake', 'circus', 'battery', 'mailman', 'cowboy', 'password', 'bicycle', 'skate', 'electricity', 'lightsaber', 'thief', 'teapot', 'deep', 'spring', 'nature', 'shallow', 'toast', 'outside', 'America', 'rollerblading', 'gingerbread', 'man', 'bowtie', 'half', 'spare', 'wax', 'lightbulb', 'platypus', 'music', 'snag', 'jungle', 'important', 'mime', 'peasant', 'baggage', 'hail', 'clog', 'pizza', 'sauce', 'password', 'Heinz', '57', 'scream', 'newsletter', 'bookend', 'pro', 'dripping', 'pharmacist', 'lie', 'catalog', 'ringleader', 'husband', 'laser', 'diagonal', 'comfy', 'myth', 'dorsal', 'biscuit', 'hydrogen', 'macaroni', 'rubber', 'darkness', 'yolk', 'exercise', 'vegetarian', 'shrew', 'chestnut', 'ditch', 'wobble', 'glitter', 'neighborhood', 'dizzy', 'fireside', 'retail', 'drawback', 'logo', 'fabric', 'mirror', 'barber', 'jazz', 'migrate', 'drought', 'commercial', 'dashboard', 'bargain', 'double', 'download', 'professor', 'landscape', 'ski goggles', 'vitamin', 'vision', 'loiterer', 'observatory', 'century', 'Atlantis', 'kilogram', 'neutron', 'stowaway', 'psychologist', 'exponential', 'aristocrat', 'eureka', 'parody', 'cartography', 'figment', 'philosopher', 'tinting', 'overture', 'opaque', 'Everglades', 'ironic', 'zero', 'landfill', 'implode', 'czar', 'armada', 'crisp', 'stockholder', 'inquisition', 'mooch', 'gallop', 'archaeologist', 'blacksmith', 'addendum', 'upgrade', 'hang', 'ten', 'acre', 'twang', 'mine', 'car', 'protestant', 'brunette', 'stout', 'quarantine', 'tutor', 'positive', 'champion', 'pastry', 'tournament', 'rainwater', 'random', 'lyrics', 'ice', 'fishing', 'clue', 'flutter', 'slump', 'ligament', 'flotsam', 'siesta', 'pomp']
 scores = {}
-
+indicies = {}
 @socketio.on("NextRound")
 def nextRound(roomId, userId):
-    index = random.randint(0, len(rooms[roomId]) - 1)
+    indicies[roomId] = (indicies[roomId] + 1) % len(rooms[roomId])
+    index =indicies[roomId]
     drawingUserIds[roomId] = rooms[roomId][index]
     emitMessageForDrawAlert(roomId,rooms[roomId][index])
     words[roomId] = wordList[random.randint(0,len(wordList)-1)]
@@ -138,6 +138,7 @@ def assignRoom():
     else:
         hosts.append(str(userId))
         rooms[str(len(rooms))] = [str(userId)]
+        indicies[str(len(rooms)-1)] = 0
         drawingUserIds[str(len(rooms)-1)] = -1
         userId += 1
         return render_template("chat.html",roomId=len(rooms)-1,userId=userId-1)
@@ -148,8 +149,8 @@ def scrabble(roomId,userId):
     usernames[userId] = request.values['username']
     scores[userId] = 0
     if drawingUserIds[roomId] == -1:
-        index = random.randint(0,len(rooms[roomId])-1)
-        print(index,rooms,roomId)
+        indicies[roomId] = (indicies[roomId]+1) % len(rooms[roomId])
+        index = indicies[roomId]
         drawingUserIds[roomId] = rooms[roomId][index]
         words[roomId] = wordList[random.randint(0,len(wordList)-1)]
     userRooms[userId] = roomId

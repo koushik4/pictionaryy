@@ -2,57 +2,108 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Scrabble</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="hidden" crossorigin="anonymous"></script>
-    <style>
-        #canvas {
-            border: 2px solid black;
-        }
-    </style>
+    <title>Pictionary-Game</title>
+    <script type=text/javascript src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{
+  url_for('static', filename='css/scrabble_styles.css') }}">
 </head>
-<body>
-<h1>Pictionary room id: {{roomId}}</h1>
-<br>
-<p id="time"></p>
-<p id="word"></p>
-<p id="round">Rounds: 5</p>
-
-<button onclick="eraser()">Eraser</button>
-<button onclick="refresh()">Refresh</button>
-<button onclick="changeSize(5)">small</button>
-<button onclick="changeSize(10)">medium</button>
-<button onclick="changeSize(15)">large</button>
-<div>
-    <h2>Participants</h2>
-    <div id="participants">
-        <p>Koushik</p>
-        <p>Hementh</p>
+<body ng-app="Pictionary" ng-controller="PictCtrl">
+<div class="topbar">
+    <h1>Pictionary room id: {{roomId}}</h1>
+</div>
+<div style="display: flex;">
+<div style="width: 75%; padding-right: 1rem;">
+    <div class="gamedetails">
+        <p id="time">Time: </p>
+        <p id="word">Word: </p>
+        <p id="round">Rounds: 5</p>
     </div>
-    <h2>Scores</h2>
-    <div id="score">
+    <div class="toolbar">
+        <button onclick="eraser()" alt="Eraser"><i class="fas fa-eraser"></i></button>
+        <button onclick="refresh()" alt="Clear"><i class="fas fa-redo-alt"></i></button>
+        <div class="toolbar_sep"></div>
+        <h4 style="font-family: 'Roboto', sans-serif; margin-right: 0.5rem; color: white;">Brush Size</h4>
+        <button onclick="changeSize(5)" alt="Small"><i class="fas fa-circle" style="font-size: 0.5rem;"></i></button>
+        <button onclick="changeSize(10)" alt="Medium"><i class="fas fa-circle icon-2x" style="font-size: 0.8rem;"></i></button>
+        <button onclick="changeSize(15)" alt="Large"><i class="fas fa-circle icon-large" style="font-size: 1.25rem;"></i></button>
+        <div class="toolbar_sep"></div>
+        <h4 style="font-family: 'Roboto', sans-serif; margin-right: 0.5rem; color: white;">Brush Colour</h4>
+        <input type="color" onchange="changeColor(this.value)">
+    </div>
 
+    <div>
+        <canvas style="width:100%;height:50%;float: left;" id="canvas" onmousedown="KeepDrawing()" onmousemove="DrawOnCanvas()" onmouseup="StopDrawing()">
+        </canvas>
     </div>
 </div>
-<div id="reward">
-<h2>Final Scores</h2>
-</div>
-<input type="color" onchange="changeColor(this.value)">
-<canvas style="width:92%;height:50%" id="canvas" onmousedown="KeepDrawing()" onmousemove="DrawOnCanvas()" onmouseup="StopDrawing()">
-</canvas>
-<div id="chat-container">
-</div>
+<div style="width: 25%; padding: 1rem;">
+    <div class="chatbar">
+        <div class="headers">
+            <div class="tab" ng-click="chatbutton()">Chat</div>
+            <div class="tab" ng-click="partbutton()">Participants</div>
+            <div class="tab" ng-click="scorebutton()">Scores</div>
+            <div class="tab" ng-click="fscorebutton()">Final Scores</div>
+        </div>
+        <div id="chat-container" class="chat_tab" ng-show="setchat">
+<!--            <div class="msg">-->
+<!--                <div class="sender">Koushik</div>-->
+<!--                <div class="msg_content">Hello There</div>-->
+<!--            </div>-->
+<!--            <div class="msg">-->
+<!--                <div class="sender">Hemanth</div>-->
+<!--                <div class="msg_content">The place between life and death is where I feel most Alive</div>-->
+<!--            </div>-->
+        </div>
+        <div class="part_tab" ng-show="setpart">
+            <div id="participants">
+                <p>Koushik</p>
+                <p>Hemanth</p>
+            </div>
+        </div>
+        <div class="part_tab" ng-show="setscore">
+            <div id="score">
+                    <div class="scoretile">
+                        <p class="scorename">Hemanth</p>
+                        <p class="scoreval">69</p>
+                    </div>
+                    <div class="scoretile">
+                        <p class="scorename">Koushik</p>
+                        <p class="scoreval">420</p>
+                    </div>
+            </div>
+        </div>
+        <div class="part_tab" ng-show="setfscore">
+            <div id="reward">
+                <h2>Final Scores</h2>
+            </div>
+        </div>
+    </div>
 
+    <div class="chatcontrols">
+        <div class="chatinput">
+            <form action="#" method="post" style="display: flex; flex-grow: 1;">
+                <input type="text" name="message" id="msg" class="msginput">
+                <button type="submit" class="sendmsg" onclick="sendMessage()"><i class="fas fa-paper-plane" style="font-size: 1rem;"></i></button>
+            </form>
+        </div>
+        <button onclick="startgame()" class="controlbuttons">Start Game</button>
+        <button id="mute" onclick="mute()" class="controlbuttons">Mute</button>
+        <button onclick="setTimeout(timeEvent,3000)" id="next" class="controlbuttons" hidden>Done</button>
+        <!-- Leave room-->
+        <form action="../..">
+            <button type="submit" class="controlbuttons" style="width: 100%;">Leave Room</button>
+        </form>
+        <!--    -->
+    </div>
 
-<form action="#" method="post">
-    <input type="text" name="message" id="msg">
-    <input type="submit" value="send" onclick="sendMessage()">
-</form>
-<form action="../..">
-    <input type="submit" value="leave room">
-</form>
-<button onclick="startgame()">Start Game</button>
-<button onclick="setTimeout(timeEvent,3000)" id="next" hidden>Done</button>
-<button onclick="mute()" id="mute">mute</button>
+</div>
+</div>
 <audio id="bgm" controls loop autoplay hidden>
     <source src="{{
   url_for('static', filename='audio/Chiptronical.ogg') }}" type="audio/ogg">
@@ -65,5 +116,48 @@
   url_for('static', filename='js/app.js') }}"></script>
 <script type=text/javascript src="{{
   url_for('static', filename='js/messaging.js') }}"></script>
+
 </body>
+
+<script>
+    var app = angular.module('Pictionary', []);
+    app.controller('PictCtrl', function($scope) {
+        $scope.setchat = 1;
+        $scope.setpart = 0;
+        $scope.setscore = 0;
+        $scope.setfscore = 0;
+
+        $scope.chatbutton = function()
+        {
+            $scope.setchat = 1;
+            $scope.setpart = 0;
+            $scope.setscore = 0;
+            $scope.setfscore = 0;
+        }
+
+        $scope.partbutton = function()
+        {
+            $scope.setchat = 0;
+            $scope.setpart = 1;
+            $scope.setscore = 0;
+            $scope.setfscore = 0;
+        }
+
+        $scope.scorebutton = function()
+        {
+            $scope.setchat = 0;
+            $scope.setpart = 0;
+            $scope.setscore = 1;
+            $scope.setfscore = 0;
+        }
+
+        $scope.fscorebutton = function()
+        {
+            $scope.setchat = 0;
+            $scope.setpart = 0;
+            $scope.setscore = 0;
+            $scope.setfscore = 1;
+        }
+    });
+</script>
 </html>
