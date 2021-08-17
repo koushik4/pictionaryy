@@ -1,6 +1,5 @@
 from flask import Flask, redirect, url_for, request, render_template,session
 from flask_socketio import SocketIO, join_room
-import flask_socketio
 from collections import OrderedDict
 import random
 
@@ -52,7 +51,7 @@ def stop(roomId):
     socketio.emit("StopDrawingFromServer", to=roomId)
 @socketio.on("DrawCurrentPoint")
 def DrawFromSocketgrnsjkf(data):
-    print("koooooooooooo")
+    # print("koooooooooooo")
     socketio.emit("DrawCurrentPointFromServer",data,to=data['roomId'])
 
 
@@ -67,7 +66,7 @@ def emitMessage(message,roomId,userId):
         scores[drawingUserIds[roomId]] += 5
         for userIds in rooms[roomId]:
             if userIds in usernames.keys():
-                socketio.emit("AddExistingParticipantsForScores", usernames[userIds] + "  " + str(scores[userIds]),
+                socketio.emit("AddExistingParticipantsForScores",  {'username':usernames[userIds],'score':(scores[userIds])},
                               to=roomId)
 
         socketio.emit("EndGame", (message,drawingUserIds[roomId]), to=roomId)
@@ -113,19 +112,19 @@ def joinRooms():
     for userIds in rooms[roomId]:
         if userIds in usernames.keys():
             socketio.emit("AddExistingParticipants",usernames[userIds],to=roomId)
-            socketio.emit("AddExistingParticipantsForScores", usernames[userIds]+"  "+str(scores[userIds]), to=roomId)
+            socketio.emit("AddExistingParticipantsForScores",  {'username':usernames[userIds],'score':(scores[userIds])}, to=roomId)
 
 
 @app.route("/",methods = ["POST","GET"])
 def home():
-    if request.method == "POST":
-        print(request.form)
+    if request.method == "POST":pass
+        # print(request.form)
     else:
         return render_template("home.html")
 
 @app.route("/room/",methods = ["POST","GET"])
 def assignRoom():
-    print("request.form,request.values")
+    # print("request.form,request.values")
     global userId
     if request.method == "POST":
         rId = request.form['roomId']
@@ -185,11 +184,11 @@ def disconnect():
             hosts.append(rooms[roomId][0])
     socketio.emit("RemoveParticipants", to=roomId)
     socketio.emit("RemoveScores", to=roomId)
-    print(rooms[roomId])
+    # print(rooms[roomId])
     for userIds in rooms[roomId]:
         if userIds in usernames.keys():
             socketio.emit("AddExistingParticipants", usernames[userIds], to=roomId)
-            socketio.emit("AddExistingParticipantsForScores", usernames[userIds] + "  " + str(scores[userIds]),
+            socketio.emit("AddExistingParticipantsForScores",  {'username':usernames[userIds],'score':(scores[userIds])},
                           to=roomId)
     socketio.emit("EmitMessageFromServer", message, to=roomId)
 

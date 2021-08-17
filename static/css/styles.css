@@ -1,0 +1,116 @@
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+body {
+    height: 100vh;
+    overflow-y: hidden;
+    font-family: 'Josefin Sans', sans-serif;
+    color: white;
+}
+
+.textbox {
+    background-color: rgba(0,0,0,0.7);
+    border: none;
+    border-style: none;
+    width: 100%;
+    height: 2rem;
+    color: white;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    padding: 0;
+    padding-top: 0.2rem;
+    text-align: center;
+}
+
+.textbox:focus {
+    border: none;
+    outline: none;
+}
+
+.join_button {
+    background-color: black;
+    width: 10rem;
+    height: 2.5rem;
+    color: white;
+    border: 0.1rem solid white;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    padding: 0;
+    padding-top: 0.2rem;
+    margin-top: 1.5rem;
+}
+
+.join_button:hover {
+    background-color: white;
+    color: black;
+}
+
+.create_button {
+    background-color: black;
+    width: 10rem;
+    height: 2.5rem;
+    color: white;
+    border: 0.1rem solid white;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    padding: 0;
+    padding-top: 0.2rem;
+    margin: 1.5rem;
+}
+
+.create_button:hover {
+    background-color: rgba(255,255,255);
+    color: black;
+}
+
+.back_card {
+    width: 20%;
+    background-color: rgba(255,255,255,0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgb(200,200,200);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-shadow: 0 0 3rem #000000;
+}
+
+.logo {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 2rem;
+    color: white;
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+form {
+    display: flex;
+    padding: 0;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#parallax {
+    position: fixed;
+    z-index: -100;
+    top: -10%;
+    left: -10%;
+}

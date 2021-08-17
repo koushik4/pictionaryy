@@ -45,11 +45,18 @@ socket.on("AddExistingParticipants",username=>{
     p.innerHTML = username
     document.getElementById("participants").appendChild(p)
 })
-socket.on("AddExistingParticipantsForScores",username=>{
+socket.on("AddExistingParticipantsForScores",data=>{
     console.log("score")
-    var p = document.createElement("p")
-    p.innerHTML = username
-    document.getElementById("score").appendChild(p)
+    var d1 = document.createElement("div")
+    d1.className  ="scoretile"
+    var p1 = document.createElement("p")
+    p1.className = "scorename"
+    p1.innerHTML = data['username']
+    var p2 = document.createElement("p")
+    p2.className = "scoreval"
+    p2.innerHTML = data['score']
+    d1.appendChild(p1);d1.appendChild(p2);
+    document.getElementById("score").appendChild(d1)
 })
 socket.on("StartGameFromServer",(userId)=>{
     isGameOn = true

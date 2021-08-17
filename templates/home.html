@@ -2,15 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Koushik</title>
+    <link rel="stylesheet" href="{{
+  url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <title>Pictionary-Home</title>
 </head>
 <body>
-<form method="get" action="/room">
-    <input type="submit" value="create">
-</form>
-<form method="POST" action="/room/">
-    <input type="text" name="roomId">
-    <input type="submit" value="join">
-</form>
+ <audio autoplay id="bgm" controls loop hidden>
+            <source src="{{
+  url_for('static', filename='audio/Chiptronical.ogg') }}" type="audio/ogg">
+        </audio>
+    <div id="parallax">
+        <div data-depth="0.3">
+            <img src="{{
+  url_for('static', filename='pictures/StarrySky.jpg') }}" width="125%" height="125%">
+        </div>
+    </div>
+    <div class="center">
+        <div class="back_card">
+            <div class="logo">
+                <h1>Pictionary</h1>
+            </div>
+            <form method="get" action="/room">
+                <input type="submit" class="create_button" value="CREATE ROOM">
+            </form>
+            <hr width="100%">
+            <br>
+            <form method="POST" action="/room">
+                <input type="text" class="textbox" name="roomId" placeholder="ROOM ID">
+                <input type="submit" class="join_button" value="JOIN ROOM">
+            </form>
+        </div>
+
+    </div>
 </body>
+<script>
+    var scene = document.getElementById('parallax');
+    var parallaxInstance = new Parallax(scene);
+    document.getElementById("bgm").volume = 0.1
+</script>
 </html>
