@@ -7,7 +7,10 @@ function sendMessage(){
     document.getElementById("msg").value = ""
     socket.emit("EmitMessage",val,roomId,id)
 }
-
+/*
+    <div class="sender">Koushik</div>
+                <div class="msg_content">Hello There</div>
+*/
 function addMessageToContainer(message){
     console.log(message,"Chst")
     let msg = document.createElement("div")
